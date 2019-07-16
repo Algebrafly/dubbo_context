@@ -15,8 +15,8 @@ import com.test.dubbo.api.DubboTestApi;
 @Component
 public class DubboTestApiService implements DubboTestApi{
 
-    @Reference
-    DubboTestApi2 dubboTestApi2;
+//    @Reference
+//    DubboTestApi2 dubboTestApi2;
     @Autowired
     DubboParam dubboParam;
 
@@ -24,7 +24,8 @@ public class DubboTestApiService implements DubboTestApi{
 	public String sayHello(String name) {
         TestObject object = dubboParam.getDubboParam();
         System.out.println(object.toString());
-		return "Hello:"+name +","+ dubboTestApi2.sayHello2(name);
+		return "Hello:"+name ;
+//        ","+ dubboTestApi2.sayHello2(name)
 	}
 
 }
