@@ -2,7 +2,11 @@ package com.test.dubbo.cunsumer.interceptor;
 
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSON;
+import com.dubbolog.constants.MdcConstant;
 import com.test.dubbo.api.TestObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,19 +23,36 @@ import java.util.UUID;
  */
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
-
+    Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
+
+
         TestObject object = new TestObject();
         object.setHello(UUID.randomUUID().toString());
         object.setName("tom");
         RpcContext.getContext().setAttachment("baseInfo",JSON.toJSONString(object));
+
+
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        MDC.put(MdcConstant.TRACE_ID, uuid);
+
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
+
+//        try {
+//            // 删除SessionId
+//            MDC.remove(MdcConstant.BASTINFO);
+//            MDC.remove(MdcConstant.TRACE_ID);
+//        } catch (Exception e) {
+//            logger.warn(e.getMessage(), e);
+//        }
+
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With, token");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
