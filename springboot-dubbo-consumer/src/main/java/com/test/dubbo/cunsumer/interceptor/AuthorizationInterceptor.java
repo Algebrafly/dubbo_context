@@ -2,7 +2,7 @@ package com.test.dubbo.cunsumer.interceptor;
 
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSON;
-import com.dubbolog.constants.MdcConstant;
+import com.test.dubbo.api.MdcConstant;
 import com.test.dubbo.api.TestObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,16 +43,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
-
-//        try {
-//            // 删除SessionId
-//            MDC.remove(MdcConstant.BASTINFO);
-//            MDC.remove(MdcConstant.TRACE_ID);
-//        } catch (Exception e) {
-//            logger.warn(e.getMessage(), e);
-//        }
-
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With, token");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
