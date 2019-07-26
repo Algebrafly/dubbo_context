@@ -1,1 +1,0 @@
-dubboLogFilter=com.test.dubbo.cunsumer.filter.DubboLogFilter

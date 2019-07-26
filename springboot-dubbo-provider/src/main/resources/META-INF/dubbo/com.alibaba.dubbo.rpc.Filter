@@ -1,2 +1,0 @@
-providerDubboLogFilter=com.test.dubbo.provider.filter.ProviderDubboLogFilter
-cunsumerDubboLogFilter=com.test.dubbo.provider.filter.CunsumerDubboLogFilter
