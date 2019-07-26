@@ -11,7 +11,17 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component
-public class DubboParam {
+public class DubboParam extends TestObject{
+
+    public DubboParam(){
+
+    }
+
+//    public DubboParam(){
+//        TestObject object = new TestObject();
+//        object = getDubboParam();
+//
+//    }
 
     public TestObject getDubboParam(){
         String param = RpcContext.getContext().getAttachment("baseInfo");
