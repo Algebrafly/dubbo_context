@@ -1,2 +1,2 @@
 providerDubboLogFilter=com.algebra.dubbo.filter.provider.ProviderDubboLogFilter
-cunsumerDubboLogFilter=com.algebra.dubbo.filter.consumer.CunsumerDubboLogFilter
+consumerDubboLogFilter=com.algebra.dubbo.filter.consumer.ConsumerDubboLogFilter

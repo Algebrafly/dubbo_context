@@ -1,1 +1,1 @@
-dubboLogFilter=com.algebra.dubbo.filter.consumer.DubboLogWebFilter
+DubboLogWebFilter=com.algebra.dubbo.filter.consumer.DubboLogWebFilter
