@@ -2,7 +2,7 @@
 <!--debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。-->
 <configuration debug="false">
     <contextName>product</contextName>
-    <property name="contextName" value="loan-demo" />
+    <property name="contextName" value="demo" />
     <property name="log_dir" value="./logs" />
 
     <!--输出到控制台-->
