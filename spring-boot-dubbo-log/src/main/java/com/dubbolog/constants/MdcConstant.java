@@ -3,8 +3,8 @@ package com.dubbolog.constants;
 /**
  * Slf4j MDC常量
  *
- * @author yuhao.wang3
- * @date 2018年5月5日 下午3:58:02
+ * @author al
+ * @date 2019年8月5日 下午3:58:02
  */
 public class MdcConstant {
 

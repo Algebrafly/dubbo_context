@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.zyh</groupId>
+	<groupId>com.algebra</groupId>
 	<artifactId>springboot-dubbo-provider2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -37,7 +37,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.zyh</groupId>
+			<groupId>com.algebra</groupId>
 			<artifactId>springboot-dubbo-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -47,6 +47,7 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.22</version>
 		</dependency>
+
     </dependencies>
 
 	<build>

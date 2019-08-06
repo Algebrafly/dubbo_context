@@ -7,9 +7,9 @@ import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 
 @EnableDubboConfiguration
 @SpringBootApplication
-public class SpringbootDubboProvider2Application {
+public class DubboProviderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootDubboProvider2Application.class, args);
+		SpringApplication.run(DubboProviderApplication.class, args);
 	}
 }

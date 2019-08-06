@@ -1,1 +1,1 @@
-providerDubboLogFilter=com.test.dubbo.provider.filter.ProviderDubboLogFilter
+providerDubboLogFilter=com.algebra.dubbo.filter.provider.ProviderDubboLogFilter
