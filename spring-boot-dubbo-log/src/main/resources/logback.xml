@@ -1,93 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。-->
-<configuration debug="false">
-    <contextName>product</contextName>
-    <property name="contextName" value="demo" />
-    <property name="log_dir" value="./logs" />
+<configuration>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %boldCyan(【%X{trace_id}】) %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="FILE_LOG_PATTERN"
+              value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{trace_id}] ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <!--输出到控制台-->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger{36}.%M\(%line\) - %msg%n</pattern>
-            <charset>utf8</charset>
-        </encoder>
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>2048</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="FILE"/>
     </appender>
 
-    <!-- 每天记录info级别日志文件 -->
-    <appender name="file-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger{36}.%M\(%line\) - %msg%n</pattern>
-            <charset>utf-8</charset>
-        </encoder>
-
-        <!-- 此日志文件只记录info级别的 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>info</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <!-- 追加方式记录日志 -->
-        <append>true</append>
-
-        <!--滚动策略-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log_dir}/${contextName}_info_%d{yyyy-MM-dd}.log</FileNamePattern>
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
-
-    </appender>
-
-    <!-- 每天记录error级别日志文件 -->
-    <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %logger{36}.%M\(%line\) - %msg%n</pattern>
-            <charset>utf-8</charset>
-        </encoder>
-
-        <!-- 此日志文件只记录info级别的 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>error</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <!-- 追加方式记录日志 -->
-        <append>true</append>
-
-        <!--滚动策略-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log_dir}/${contextName}_error_%d{yyyy-MM-dd}.log</FileNamePattern>
-            <MaxHistory>30</MaxHistory>
-        </rollingPolicy>
-
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
-
-    </appender>
-
-    <logger name="com.lunz.fin.mapper" level="debug" additivity="false" >
-        <appender-ref ref="console" />
-        <appender-ref ref="file-info" />
-        <appender-ref ref="file-error" />
-    </logger>
-
-    <logger name="com.baomidou.mybatisplus.mapper" level="debug" additivity="false" >
-        <appender-ref ref="console" />
-        <appender-ref ref="file-info" />
-        <appender-ref ref="file-error" />
-    </logger>
-
-    <!-- 日志输出级别 -->
-    <root level="INFO">
-        <appender-ref ref="console" />
-        <appender-ref ref="file-info" />
-        <appender-ref ref="file-error" />
-    </root>
-
-
-
-</configuration>
+    <logger name="com.dubbolog" level="debug" additivity="true"/>
+</configuration>  
