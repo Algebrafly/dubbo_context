@@ -5,6 +5,7 @@ import com.algebra.dubbo.api.IGetInfoService;
 import com.algebra.dubbo.api.ISayHelloService;
 import com.algebra.dubbo.filter.DubboParam;
 import com.algebra.dubbo.interfaces.ITestService;
+import com.algebra.dubbo.kafka.KafkaSendService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,17 @@ public class SayHelloServiceImpl implements ISayHelloService {
     IGetInfoService getInfoService;
     @Autowired
     ITestService testService;
+    @Autowired
+	KafkaSendService kafkaSendService;
 
 	@Override
 	public String sayHello(String name) {
 
 		log.info("[provider-01]--------->>调用成功,traceId = {}",DubboParam.getInstance().getTraceId());
 		String result = getInfoService.getInfo(name);
+
+		kafkaSendService.sendMessage("消息成功接收！Hello...");
+
 		return testService.hello(result);
 	}
 
